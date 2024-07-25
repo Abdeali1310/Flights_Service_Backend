@@ -52,4 +52,22 @@ async function destroyAirplane(id){
         throw new AppError("Cannot able to fetch data at the moment",StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
-module.exports = {createAirplane,getAirplanes,getAirplane,destroyAirplane}
+
+async function updateAirplane(id,data){
+    try {
+        if (!Object.keys(data).length) {
+            throw new AppError("No data provided for update", StatusCodes.BAD_REQUEST);
+        }
+        const res = await airplaneRepo.update(id,data);
+        if(!res){
+            throw new AppError("Please provide the necessary data to be updated",StatusCodes.BAD_REQUEST);
+        }
+        return res;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("The Airplane with requested Id is not found",StatusCodes.NOT_FOUND);
+        }
+        throw new AppError("Cannot able to edit data at the moment",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+module.exports = {createAirplane,getAirplanes,getAirplane,destroyAirplane,updateAirplane}
