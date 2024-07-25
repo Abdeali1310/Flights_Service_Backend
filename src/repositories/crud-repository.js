@@ -1,4 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
 const logger  = require("../config/logger-config");
+const AppError = require("../utils/error/app-error");
 
 
 class crudRepository{
@@ -28,7 +30,7 @@ class crudRepository{
             throw error;
         }
     }
-    async get(data){
+    async getAll(){
         try {
             const res = await this.model.findAll();
             return res;
@@ -37,6 +39,21 @@ class crudRepository{
             throw error;
         }
     }
+
+    async get(data){
+        try {
+            const res = await this.model.findByPk(data);
+            if(!res){
+                throw new AppError("Data not found",StatusCodes.NOT_FOUND);
+            }
+            return res;
+        } catch (error) {
+            logger.error("Error in Get");
+            throw error;
+        }
+    }
+
+
     async update(data){
         try {
             const res = await this.model.update(data,{
