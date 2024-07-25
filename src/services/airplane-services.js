@@ -41,4 +41,15 @@ async function getAirplane(data){
     }
 }
 
-module.exports = {createAirplane,getAirplanes,getAirplane,}
+async function destroyAirplane(id){
+    try {
+        const res = await airplaneRepo.destroy(id);
+        return res;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("The Airplane with requested Id is not found",StatusCodes.NOT_FOUND);
+        }
+        throw new AppError("Cannot able to fetch data at the moment",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+module.exports = {createAirplane,getAirplanes,getAirplane,destroyAirplane}

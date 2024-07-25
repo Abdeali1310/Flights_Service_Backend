@@ -24,6 +24,9 @@ class crudRepository{
                     id:data,
                 }
             });
+            if(!res){
+                throw new AppError("Data not found",StatusCodes.NOT_FOUND);
+            }
             return res;
         } catch (error) {
             logger.error("Error in Destroy");
