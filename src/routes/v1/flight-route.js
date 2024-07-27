@@ -6,8 +6,8 @@ const router = express.Router();
 //for creating route
 router.post('/',FlightMiddlewares.validateCreateRequest,FlightMiddlewares.validateTime,FlightController.createFlight)
 
-// //for getting all Flight data
-// router.get('/',FlightController.getFlights)
+//for getting all Flight data
+router.get('/',FlightController.getAllFlights)
 // //for getting /:id
 // router.get('/:id',FlightController.getFlight)
 
