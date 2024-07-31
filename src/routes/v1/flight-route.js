@@ -8,8 +8,8 @@ router.post('/',FlightMiddlewares.validateCreateRequest,FlightMiddlewares.valida
 
 //for getting all Flight data
 router.get('/',FlightController.getAllFlights)
-// //for getting /:id
-// router.get('/:id',FlightController.getFlight)
+//for getting /:id
+router.get('/:id',FlightController.getFlight)
 
 // //for deleting /:id
 // router.delete('/:id',FlightController.destroyFlight)
