@@ -86,4 +86,20 @@ const validateTime = (req, res, next) => {
   }
   next();
 };
-module.exports = { validateCreateRequest, validateTime };
+
+const validateUpdateRemainingSeats = (req, res, next) => {
+  if (!req.body.seats) {
+    errorResponse.message = "Something broke while Updating flight";
+    errorResponse.error = new AppError(
+      "Number of Seats are required",
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(errorResponse);
+  }
+  next();
+};
+module.exports = {
+  validateCreateRequest,
+  validateTime,
+  validateUpdateRemainingSeats,
+};
